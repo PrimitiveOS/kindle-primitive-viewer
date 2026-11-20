@@ -6,7 +6,7 @@
 
 **Open PDFs, JPEGs, and PNGs on your Kindle.**
 
-[Install guide](INSTALL.md) · [Changelog](CHANGELOG.md)
+[Releases](https://github.com/PrimitiveOS/kindle-primitive-viewer/releases) · [Install guide](INSTALL.md) · [Changelog](CHANGELOG.md)
 
 </div>
 
@@ -26,7 +26,8 @@ in a PDF.
 
 ## Using Viewer
 
-- Tap **Open** to browse files or choose a document under **Recent**.
+- Tap **Open** to browse files. Swipe or use the Kindle page buttons to scroll the list, then tap a file.
+- Choose a document under **Recent** to continue reading.
 - Scroll continuously through a PDF with vertical swipes or the Kindle page buttons. The page indicator shows where you are.
 - Tap **−** or **+** to change the zoom. Open **View** to fit the page or image to the screen or width, or to rotate it.
 - Files 0.1.1 or later can open a supported document in Viewer. Closing Viewer returns to Launcher.

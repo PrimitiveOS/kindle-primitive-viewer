@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Scroll the **Open file** list with the Kindle page buttons.
+
 ## 0.1.0
 
 - Open PDFs, JPEGs, and PNGs offline from Launcher or Files.

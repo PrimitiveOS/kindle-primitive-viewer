@@ -627,6 +627,16 @@ impl Viewer {
         Change::Partial
     }
 
+    fn scroll_rows(&mut self, delta: isize) -> Change {
+        let max = ui::row_count(self).saturating_sub(ui::VISIBLE_ROWS);
+        let next = self.first.saturating_add_signed(delta).min(max);
+        if next == self.first {
+            return Change::None;
+        }
+        self.first = next;
+        Change::Partial
+    }
+
     fn jump_key(&mut self, key: Key) -> Change {
         let (Some(editor), Some(reader)) = (self.jump.as_mut(), self.reader.as_ref()) else {
             return Change::None;
@@ -740,11 +750,21 @@ impl App for Viewer {
         if self.jump.is_some() || self.notice.is_some() || self.view_menu {
             return Change::None;
         }
-        // Leave a little overlap so the next view repeats the last lines of the previous one.
-        let page_step = ui::VIEWPORT.h - ui::VIEWPORT.h / 10;
         match input {
-            Input::PageForward => self.scroll(page_step),
-            Input::PageBack => self.scroll(-page_step),
+            Input::PageForward | Input::PageBack => {
+                let direction = if matches!(input, Input::PageForward) {
+                    1
+                } else {
+                    -1
+                };
+                if self.page == Page::Reader {
+                    // Preserve a little overlap between adjacent document views.
+                    let page_step = ui::VIEWPORT.h - ui::VIEWPORT.h / 10;
+                    self.scroll(direction * page_step)
+                } else {
+                    self.scroll_rows(direction as isize * ui::VISIBLE_ROWS as isize)
+                }
+            }
             Input::Swipe { dx, dy, start_y } if self.page == Page::Reader => {
                 if start_y < ui::VIEWPORT.y as f32 || start_y >= ui::VIEWPORT.bottom() as f32 {
                     return Change::None;
@@ -760,7 +780,6 @@ impl App for Viewer {
                 }
             }
             Input::Swipe { dy, .. } if dy.abs() >= 45.0 => {
-                let max = ui::row_count(self).saturating_sub(ui::VISIBLE_ROWS);
                 let rows = -(dy / ui::ROW_HEIGHT as f32).round() as isize;
                 let offset = if rows == 0 {
                     if dy > 0.0 {
@@ -771,13 +790,7 @@ impl App for Viewer {
                 } else {
                     rows
                 };
-                let old = self.first;
-                self.first = self.first.saturating_add_signed(offset).min(max);
-                if old != self.first {
-                    Change::Partial
-                } else {
-                    Change::None
-                }
+                self.scroll_rows(offset)
             }
             _ => Change::None,
         }
@@ -815,6 +828,38 @@ impl App for Viewer {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn page_buttons_scroll_file_picker_and_share_bounds_with_touch() {
+        let mut viewer = Viewer::new(PathBuf::new(), PathBuf::new());
+        viewer.page = Page::Browse;
+        viewer.entries = (0..ui::VISIBLE_ROWS * 2 + 3)
+            .map(|index| Entry {
+                path: format!("notes-{index}.pdf").into(),
+                folder: false,
+            })
+            .collect();
+
+        assert_eq!(viewer.input(Input::PageBack), Change::None);
+        assert_eq!(viewer.input(Input::PageForward), Change::Partial);
+        assert_eq!(viewer.first, ui::VISIBLE_ROWS);
+        assert_eq!(viewer.input(Input::PageForward), Change::Partial);
+        assert_eq!(viewer.first, ui::VISIBLE_ROWS + 3);
+        assert_eq!(viewer.input(Input::PageForward), Change::None);
+        assert_eq!(viewer.input(Input::PageBack), Change::Partial);
+        assert_eq!(viewer.first, 3);
+        assert_eq!(
+            viewer.input(Input::Swipe {
+                dx: 0.0,
+                dy: ui::ROW_HEIGHT as f32,
+                start_y: 700.0
+            }),
+            Change::Partial,
+        );
+        assert_eq!(viewer.first, 2);
+        assert_eq!(viewer.input(Input::PageBack), Change::Partial);
+        assert_eq!(viewer.first, 0);
+    }
 
     #[test]
     fn continuous_flow_keeps_a_fractional_anchor_and_shows_both_sides_of_a_gap() {

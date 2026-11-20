@@ -3,7 +3,7 @@
 Open **Store** from the existing Primitive Launcher. Find **Viewer** under **Reading** or **Utilities** and tap **Get**.
 After installation, open Viewer from the Launcher grid. Install or update **Files** to 0.1.1 or later to use
 **Open in Viewer** from its file menu.
-Swipe vertically or use the Kindle page buttons to scroll through a PDF.
+Swipe vertically or use the Kindle page buttons to scroll through the file picker or a PDF.
 
 ## Install from a release ZIP
 
