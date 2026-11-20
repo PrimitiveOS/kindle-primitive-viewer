@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "id": "primitive-viewer",
+  "dir": "viewer",
+  "name": "Viewer",
+  "subtitle": "Open PDFs, JPEGs, and PNGs",
+  "developer": { "name": "Primitive AI", "url": "https://github.com/PrimitiveOS" },
+  "categories": ["reading", "utilities"],
+  "description": "Open PDFs, JPEGs, and PNGs stored on your Kindle. Scroll through PDFs continuously with a vertical swipe or the Kindle page buttons. Use the page indicator to see where you are and the small zoom controls to adjust the view. The View menu offers fit and rotation controls for PDFs and images.\n\nOpen Viewer from Launcher or choose Open in Viewer from Files 0.1.1 or later. Viewer reads documents offline and saves your place on the Kindle.",
+  "repo": "https://github.com/PrimitiveOS/kindle-primitive-viewer",
+  "licence": "PolyForm-Noncommercial-1.0.0",
+  "source": "hosted",
+  "icon": "icon.png",
+  "changes": {
+    "network": false,
+    "stops_kindle_ui": false,
+    "starts_at_boot": false,
+    "root_filesystem": false,
+    "hooks": false,
+    "notes": "Opens documents read-only and saves recent files and page positions in Viewer’s folder."
+  },
+  "versions": []
+}
