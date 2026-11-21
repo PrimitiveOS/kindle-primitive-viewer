@@ -977,7 +977,10 @@ version = "0.1.0"
 dependencies = [
  "kl-core",
  "kl-kindle",
+ "libc",
  "png 0.17.16",
+ "primitive-device",
+ "primitive-input",
  "primitive-ui",
 ]
 
