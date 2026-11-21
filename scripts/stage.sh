@@ -14,9 +14,10 @@ file "$binary" | grep -q 'ELF.*ARM' || { echo "Expected an ARM binary." >&2; exi
 [ -r assets/viewer-icon.png ] || { echo "Add the approved Viewer icon before staging." >&2; exit 1; }
 [ -r docs/licenses/THIRD-PARTY.txt ] || { echo "Missing Viewer third-party notices." >&2; exit 1; }
 icon="# Icon: data:image/png;base64,$(base64 < assets/viewer-icon.png | tr -d '\n')"
+icon_dark="# IconDark: data:image/png;base64,$(base64 < assets/viewer-icon-dark.png | tr -d '\n')"
 
 install -d "$stage/viewer/bin" "$stage/viewer/licenses" "$stage/documents"
 install -m 755 "$binary" "$stage/viewer/bin/kl-viewer-app"
 cp -R docs/licenses/. "$stage/viewer/licenses/"
-awk -v icon="$icon" '{ print } /^# Author:/ { print icon }' deploy/Viewer.sh > "$stage/documents/Viewer.sh"
+awk -v icon="$icon" -v icon_dark="$icon_dark" '{ print } /^# Author:/ { print icon; print icon_dark }' deploy/Viewer.sh > "$stage/documents/Viewer.sh"
 chmod 755 "$stage/documents/Viewer.sh"
