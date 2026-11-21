@@ -136,7 +136,7 @@ fn row(canvas: &mut Canvas, index: usize, title: &str, detail: &str, folder: boo
 pub(crate) fn draw(canvas: &mut Canvas, app: &Viewer) {
     match app.page {
         Page::Recent => {
-            header(canvas, "Viewer", "Done");
+            header(canvas, "Viewer", "Exit");
             canvas.button(OPEN, "Open", false, false);
             canvas.text(
                 Rect::new(44, 302, 800, 42),
@@ -215,7 +215,7 @@ pub(crate) fn draw(canvas: &mut Canvas, app: &Viewer) {
         }
         Page::Reader => {
             if let Some(reader) = &app.reader {
-                flat_label(canvas, READER_DONE, "Done", true);
+                flat_label(canvas, READER_DONE, "Exit", true);
                 flat_label(canvas, VIEW_MENU, "View", false);
                 canvas.text(
                     Rect::new(153, 19, 945, 56),
