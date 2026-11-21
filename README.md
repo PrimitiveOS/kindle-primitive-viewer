@@ -1,18 +1,25 @@
 <div align="center">
 
-<img src="assets/viewer-icon.png" alt="Viewer icon" width="100">
-
 # Viewer
 
-**Open PDFs, JPEGs, and PNGs on your Kindle.**
+**Open PDFs, JPEGs, and PNGs**
 
-[Releases](https://github.com/PrimitiveOS/kindle-primitive-viewer/releases) · [Install guide](INSTALL.md) · [Changelog](CHANGELOG.md)
+[![Release](https://img.shields.io/github/v/release/PrimitiveOS/kindle-primitive-viewer?label=release)](https://github.com/PrimitiveOS/kindle-primitive-viewer/releases) [![Licence: PolyForm-Noncommercial-1.0.0](https://img.shields.io/badge/licence-PolyForm--Noncommercial--1.0.0-blue)](LICENSE) [![Store downloads](https://img.shields.io/badge/Store%20downloads-13-brightgreen)](https://primitiveos.github.io/kindle-primitive-catalog/v1/index.json)
+
+[**Download**](https://github.com/PrimitiveOS/kindle-primitive-viewer/releases/latest) · [**Install guide**](INSTALL.md) · [**Changelog**](CHANGELOG.md)
 
 </div>
 
-Viewer is a standalone PrimitiveOS app for reading PDFs and looking at images offline. Open a file from your
-Kindle’s storage or choose **Open in Viewer** from Files. Viewer keeps a small Recent list and saves your place
-in a PDF.
+---
+
+Open PDFs, JPEGs, and PNGs stored on your Kindle. Use vertical swipes or the Kindle page buttons to scroll through the file picker and read PDFs continuously. The page indicator shows where you are. Use the zoom controls to adjust the view, and open View to fit or rotate PDFs and images.
+
+Open Viewer from Launcher or choose Open in Viewer from Files 0.1.1 or later. Viewer reads documents offline and saves your place on the Kindle.
+
+## Quick start
+
+After setting up PrimitiveOS, open **Store** from Primitive Launcher. Choose **Viewer** under **Apps**,
+tap **Get**, and open it from the Launcher grid. The [install guide](INSTALL.md) also covers the standalone USB package.
 
 ## Screenshots
 
@@ -24,26 +31,28 @@ in a PDF.
 
 [Preview continuous scrolling across two PDF pages](docs/images/viewer-scroll.png)
 
-## Using Viewer
+## Highlights
 
-- Tap **Open** to browse files. Swipe or use the Kindle page buttons to scroll the list, then tap a file.
-- Choose a document under **Recent** to continue reading.
-- Scroll continuously through a PDF with vertical swipes or the Kindle page buttons. The page indicator shows where you are.
-- Tap **−** or **+** to change the zoom. Open **View** to fit the page or image to the screen or width, or to rotate it.
-- Files 0.1.1 or later can open a supported document in Viewer. Closing Viewer returns to Launcher.
+- Open PDFs, JPEGs, and PNGs stored on your Kindle.
+- Use vertical swipes or the Kindle page buttons to scroll through the file picker and read PDFs continuously.
+- The page indicator shows where you are.
 
-## Build and preview
+## Status
 
-Keep `doannt-kindle-tools` and `doannt-kindle-launcher` beside this checkout. For the desktop preview, place a multipage
-PDF, a JPEG, and a PNG in the sample Documents folder. The preview writes PNG screenshots to the output folder.
+| Device | Status |
+|---|---|
+| Kindle Oasis 3 (1264 × 1680, firmware 5.18.2) | Tested on hardware |
 
-```sh
-cargo test --workspace --locked
-cargo run --locked -p viewer-kindle --features desktop-preview --bin viewer-desktop -- \
-  /path/to/sample-storage build/previews Documents/sample.pdf Documents/photo.jpg Documents/image.png
-cargo zigbuild --locked --release -p viewer-kindle --target armv7-unknown-linux-musleabihf
-sh scripts/stage.sh armhf
-```
+**Current version: 0.1.2.** Changes are in [CHANGELOG.md](CHANGELOG.md).
+
+## Downloads
+
+**13 downloads** from Store, as of 2026-11-21. Store shows the same count on the app page.
+The count is GitHub downloads of this app's release packages, from the [Store catalog](https://primitiveos.github.io/kindle-primitive-catalog/v1/index.json).
+
+## Documentation
+
+[Install guide](INSTALL.md) · [Changelog](CHANGELOG.md)
 
 ## Licence
 
